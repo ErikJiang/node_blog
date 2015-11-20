@@ -6,10 +6,6 @@ function router(app){
         res.render('index', { title: 'Express' });
     });
 
-    app.get('/home', function(req, res, next) {
-        res.render('home');
-    });
-
     //
     usersRouter(app);
 }
