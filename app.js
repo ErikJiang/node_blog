@@ -4,6 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var connect = require('connect');
+var sessionStore = require('session-mongoose')(connect);
 
 var routes = require('./routes');
 
@@ -14,14 +17,24 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/images/node.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+    secret: 'node_blog',
+    store: new sessionStore({
+        url: 'mongodb://localhost/session',
+        unterval: 120000
+    }),
+    cookie: {maxAge: 1000*60*30},
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-//router handle
+//router handler
 routes(app);
 
 // catch 404 and forward to error handler
