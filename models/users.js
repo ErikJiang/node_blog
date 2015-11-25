@@ -2,42 +2,46 @@
  * Created by jiangink on 15/11/23.
  */
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/node_blog');
+mongoose.connect('mongodb://localhost:27017/node_blog');
 
 //Schema
-var userSchema = new mongoose.Schema({
-    userName: {type:'String', required:true},
-    password: {type:'String', required:true},
-    userAge: {type:'Number'},
-    nickname: {type:'String'},
-    profile: {type:'String'},
-    eMail: {type:'String'},
-    headImg: {type:'String'},
-    createTime: {type:'Date', default:Date.now}
-},{
-    collection: 'users'
-});
+//var userSchema = new mongoose.Schema({
+//    userName: {type:'String', required:true},
+//    password: {type:'String', required:true},
+//    userAge: {type:'Number'},
+//    nickname: {type:'String'},
+//    profile: {type:'String'},
+//    eMail: {type:'String'},
+//    headImg: {type:'String'},
+//    createTime: {type:'Date'}
+//});
 
+var userSchema = new mongoose.Schema({
+    userName: String,
+    password: String
+});
 //Model
-var userModel = mongoose.model('User', userSchema);
+var userModel = mongoose.model('users', userSchema);
 
 function User(user){
     this.userName = user.userName;
     this.password = user.password;
-    this.userAge = user.userAge;
-    this.profile = user.profile;
-    this.eMail = user.eMail;
-    this.headImg = user.headImg;
 }
 
 User.prototype.save = function(callback){
+    //var user = {
+    //    userName: this.userName,
+    //    password: this.password,
+    //    userAge: 18,
+    //    nickname: '匿名',
+    //    profile: '这个人很懒,什么都没有留下.',
+    //    eMail: 'name@example.com',
+    //    headImg: './images/owl.png',
+    //    createTime: '2015-11-25'
+    //};
     var user = {
         userName: this.userName,
-        password: this.password,
-        userAge: this.userAge,
-        profile: this.profile,
-        eMail: this.eMail,
-        headImg: this.headImg
+        password: this.password
     };
     //Entity
     var userEntity = new userModel(user);
@@ -46,18 +50,19 @@ User.prototype.save = function(callback){
         if(err){
             return callback(err);
         }
-        callbak(null, user);
+        callback(null, user);
     });
 };
 
-User.get = function(name, callback){
-  userModel.findOne({userName: name}, function(err, user){
+User.findByName = function(name, callback){
+  userModel.findOne({ userName: name }, function(err, user){
       if(err){
           return callback(err);
       }
       callback(null, user);
   });
 };
+
 
 module.exports = User;
 
