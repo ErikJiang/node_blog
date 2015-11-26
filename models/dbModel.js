@@ -6,21 +6,21 @@ mongoose.connect('mongodb://localhost:27017/node_blog');
 
 
 //Schema
-//var userSchema = new mongoose.Schema({
-//    userName: {type:'String', required:true},
-//    password: {type:'String', required:true},
-//    userAge: {type:'Number'},
-//    nickname: {type:'String'},
-//    profile: {type:'String'},
-//    eMail: {type:'String'},
-//    headImg: {type:'String'},
-//    createTime: {type:'Date'}
-//});
-
 var userSchema = new mongoose.Schema({
-    userName: String,
-    password: String
+    userName: {type:'String', required:true},
+    password: {type:'String', required:true},
+    userAge: {type:'Number'},
+    nickname: {type:'String'},
+    profile: {type:'String'},
+    eMail: {type:'String'},
+    headImg: {type:'String'},
+    createTime: {type:'Date'}
 });
+
+//var userSchema = new mongoose.Schema({
+//    userName: String,
+//    password: String
+//});
 
 //Model
 exports.userModel = mongoose.model('users', userSchema);

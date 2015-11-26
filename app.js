@@ -4,11 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-//mongoSession通过引用session-mongoose插件创建存在问题（查询时会引发堆栈溢出）
-//var session = require('express-session');
-//var connect = require('connect');
-//var sessionStore = require('session-mongoose')(connect);
-//mongoSession通过引用connect-mongo插件则可正常使用
 var session = require('express-session');
 var sessionStore = require('connect-mongo')(session);
 

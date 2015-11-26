@@ -13,7 +13,7 @@
     </div>
 
     <!-- 登录输入界面 -->
-    <form class="form-signup" action="/register" method="POST">
+    <form class="form-signup" action="/register.do" method="POST">
         <h2 class="form-signup-heading">请注册</h2>
         <label for="inputUsrName" class="sr-only">UserName</label>
         <input type="text" id="inputUsrName" name="username" class="form-control" placeholder="用户名称" required autofocus/>
@@ -21,8 +21,8 @@
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="设置密码" required/>
         <label for="inputRePasswd" class="sr-only">Re-Password</label>
         <input type="password" id="inputRePasswd" name="repassword" class="form-control" placeholder="确认密码" required/>
-        <span class="errinfo"><%= errinfo %></span>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+        <span class="errinfo"></span>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">注册</button>
     </form>
 </div>
 

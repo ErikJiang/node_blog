@@ -260,10 +260,20 @@ body {
     border-top-right-radius: 0;
 }
 
-.errinfo{
+.errinfo, .corinfo{
     display: block;
-    color: red;
     font-size: 14px;
     line-height: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.errinfo{
+    color: red;
+}
+.corinfo{
+    color: lightseagreen;
+}
+
+.info-align{
     text-align: center;
 }
