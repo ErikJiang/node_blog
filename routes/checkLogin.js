@@ -3,7 +3,6 @@
  */
 
 exports.checkNotLogin = function(req, res, next){
-    console.log("session.user>>", req.session.user);
     if(req.session.user){
         return res.render('feedback', {
             user: req.session.user,
@@ -14,7 +13,6 @@ exports.checkNotLogin = function(req, res, next){
 };
 
 exports.checkIsLogin = function(req, res, next){
-    console.log("session.user>>", req.session.user);
     if(!req.session.user){
         return res.render('feedback', {
             user: null,

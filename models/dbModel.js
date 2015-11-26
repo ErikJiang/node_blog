@@ -9,8 +9,8 @@ mongoose.connect('mongodb://localhost:27017/node_blog');
 var userSchema = new mongoose.Schema({
     userName: {type:'String', required:true},
     password: {type:'String', required:true},
-    userAge: {type:'Number'},
-    nickname: {type:'String'},
+    userTitle: {type:'Number'},
+    nickName: {type:'String'},
     profile: {type:'String'},
     eMail: {type:'String'},
     headImg: {type:'String'},

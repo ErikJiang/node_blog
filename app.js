@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var sessionStore = require('connect-mongo')(session);
-
 var routes = require('./routes');
 
 var app = express();
@@ -24,7 +23,7 @@ app.use(cookieParser());
 app.use(session({
     secret: 'node_blog',
     store: new sessionStore({
-        url: 'mongodb://localhost/session',
+        url: 'mongodb://localhost:27017/node_blog',
         unterval: 120000
     }),
     cookie: {maxAge: 1000*60*30},

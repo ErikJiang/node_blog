@@ -1,0 +1,42 @@
+<!-- 头部内容 -->
+<%- include ./common/header %>
+
+<body>
+<!-- 顶部导航内容 -->
+<%- include ./common/nav %>
+
+<div class="container">
+    <div class="blog-header">
+        <h1 class="blog-title">NODE BLOG</h1>
+        <hr/>
+        <p class="lead blog-description">欢迎来到NODE BLOG，让我们一起去探索生活，开辟趣味的新世界!</p>
+    </div>
+
+    <!-- 用户信息界面 -->
+    <form class="form-setinfo" action="/setinfo.do" method="POST">
+        <h2 class="form-setinfo-heading">
+            <span class="glyphicon glyphicon-cog"></span>&nbsp;信息设置
+        </h2>
+        <label for="usrName" class="sr-only">用户账号</label>
+        <p class="form-control-static">
+            <span class="glyphicon glyphicon-th">
+            <%= user.userName %>
+        </p>
+        <!--<input type="text" id="usrName" name="usrName" class="form-control" placeholder="用户账号" required autofocus/>-->
+        <label for="nickName" class="sr-only">昵称</label>
+        <input type="text" id="nickName" name="nickName" class="form-control" placeholder="昵称" required/>
+        <label for="usrTitle" class="sr-only">头衔</label>
+        <input type="text" id="usrTitle" name="usrTitle" class="form-control" placeholder="头衔" required/>
+        <label for="eMail" class="sr-only">电子邮箱</label>
+        <input type="text" id="eMail" name="eMail" class="form-control" placeholder="电子邮箱" required/>
+        <label for="profile" class="sr-only">个人简述</label>
+        <textarea name="profile" id="profile" class="form-control" cols="30" rows="10" placeholder="个人简述" required></textarea>
+
+
+        <span class="errinfo"></span>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">保存</button>
+    </form>
+</div>
+
+<!-- 底部页尾内容 -->
+<%- include ./common/footer %>

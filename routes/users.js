@@ -36,7 +36,6 @@ function router(app){
                 });
             }
             req.session.user = user;
-            //res.render('index', {user: req.session.user});
             res.redirect('/');
         });
     });
@@ -53,17 +52,8 @@ function router(app){
     //register Handler
     app.post('/register.do', check.checkNotLogin);
     app.post('/register.do', function (req, res, next) {
-        //获取用户名密码信息
-
-        //1、用户名是否存在
-        //需要客户端AJAX单独判断
-
-        //2、密码是否一致
-        //需要客户端进行判断
-
-        //3、保存数据库
-        console.log("username:"+req.body.username);
-        console.log("password:"+req.body.password);
+        //console.log("username:"+req.body.username);
+        //console.log("password:"+req.body.password);
         var username = req.body.username;
         var md5 = crypto.createHash('md5');
         var passwd_md5 = md5.update(req.body.password).digest('hex');
@@ -89,7 +79,15 @@ function router(app){
         });
     });
 
-    //logout handler
+    ///setinfo Handler
+    app.get('/setinfo.do', check.checkIsLogin);
+    app.get('/setinfo.do', function (req, res, next) {
+        res.render('setinfo', {
+            user: req.session.user
+        });
+    });
+
+    //logout Handler
     app.get('/logout.do', check.checkIsLogin);
     app.get('/logout.do', function (req, res, next) {
         req.session.user = null;
