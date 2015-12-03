@@ -13,8 +13,8 @@ var userSchema = new mongoose.Schema({
     nickName: {type:'String'},
     profile: {type:'String'},
     eMail: {type:'String'},
-    headImg: {type:'String'},
-    createTime: {type:'Date'}
+    headImg: {type:'String', default: './images/owl.png'},
+    createTime: {type:'Date', default: Date.now()}
 });
 
 //var userSchema = new mongoose.Schema({

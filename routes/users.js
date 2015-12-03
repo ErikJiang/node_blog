@@ -54,9 +54,9 @@ function router(app){
     app.post('/register.do', function (req, res, next) {
         //console.log("username:"+req.body.username);
         //console.log("password:"+req.body.password);
-        var username = req.body.username;
-        var md5 = crypto.createHash('md5');
-        var passwd_md5 = md5.update(req.body.password).digest('hex');
+        var username = req.body.username,
+            md5 = crypto.createHash('md5'),
+            passwd_md5 = md5.update(req.body.password).digest('hex');
 
         var user = new userModel({
             userName: username,
@@ -79,11 +79,39 @@ function router(app){
         });
     });
 
-    ///setinfo Handler
+    //get user info page
     app.get('/setinfo.do', check.checkIsLogin);
     app.get('/setinfo.do', function (req, res, next) {
         res.render('setinfo', {
             user: req.session.user
+        });
+    });
+
+    //commit new user info
+    app.post('/setinfo.do', check.checkIsLogin);
+    app.post('/setinfo.do', function(req, res, next) {
+        console.log("user session ID>>", req.session.user._id);
+        var usrInfo = {
+            nickName: req.body.nickName,
+            userTitle: req.body.usrTitle,
+            profile: req.body.profile,
+            eMail: req.body.eMail
+        };
+        userModel.findByIdAndUpdate(req.session.user._id, usrInfo, function(err, user) {
+            if(err){
+                console.log('err: ', err);
+                return res.render('setinfo', {
+                    user: req.session.user,
+                    errinfo: 'update err!'
+                });
+            }
+
+            res.render('feedback',{
+                user: req.session.user,
+                type: 'setinfo',
+                errinfo: null,
+                sucessinfo: '恭喜设置成功！'
+            });
         });
     });
 
