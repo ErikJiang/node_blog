@@ -90,14 +90,13 @@ function router(app){
     //commit new user info
     app.post('/setinfo.do', check.checkIsLogin);
     app.post('/setinfo.do', function(req, res, next) {
-        console.log("user session ID>>", req.session.user._id);
         var usrInfo = {
             nickName: req.body.nickName,
             userTitle: req.body.usrTitle,
             profile: req.body.profile,
             eMail: req.body.eMail
         };
-        userModel.findByIdAndUpdate(req.session.user._id, usrInfo, function(err, user) {
+        userModel.findByIdAndUpdate(req.session.user._id, {$set: usrInfo}, {'new': true}, function(err, user) {
             if(err){
                 console.log('err: ', err);
                 return res.render('setinfo', {
@@ -105,7 +104,7 @@ function router(app){
                     errinfo: 'update err!'
                 });
             }
-
+            req.session.user = user;
             res.render('feedback',{
                 user: req.session.user,
                 type: 'setinfo',

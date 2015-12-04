@@ -146,6 +146,9 @@ body {
     width: 80%; height: 80%;
     margin: 0px auto;
 }
+.sidebar-module-inset p {
+    font-size: 12px;
+}
 .sidebar-module-inset p:last-child {
     margin-bottom: 0;
 }
@@ -304,7 +307,7 @@ body {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     padding: 10px;
-    font-size: 16px;
+    font-size: 14px;
 }
 .form-setinfo .form-control:focus {
     z-index: 2;
@@ -313,13 +316,10 @@ body {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-    font-size: 14px;
 }
 .form-setinfo .selStyle {
     height: 40px;
-    font-size: 14px;
 }
 .form-setinfo textarea {
     resize: none;
-    font-size: 14px;
 }

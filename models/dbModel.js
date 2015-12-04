@@ -9,18 +9,13 @@ mongoose.connect('mongodb://localhost:27017/node_blog');
 var userSchema = new mongoose.Schema({
     userName: {type:'String', required:true},
     password: {type:'String', required:true},
-    userTitle: {type:'Number'},
-    nickName: {type:'String'},
-    profile: {type:'String'},
-    eMail: {type:'String'},
+    userTitle: {type:'Number', default: 0},
+    nickName: {type:'String', default: '匿名'},
+    profile: {type:'String', default: '这个人很懒，啥都没写，呵呵哒～'},
+    eMail: {type:'String', default: 'username@example.com'},
     headImg: {type:'String', default: './images/owl.png'},
     createTime: {type:'Date', default: Date.now()}
 });
-
-//var userSchema = new mongoose.Schema({
-//    userName: String,
-//    password: String
-//});
 
 //Model
 exports.userModel = mongoose.model('users', userSchema);

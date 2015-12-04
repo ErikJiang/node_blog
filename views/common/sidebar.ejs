@@ -2,18 +2,43 @@
     <!-- About Info -->
     <div class="sidebar-module sidebar-module-inset">
         <img src="./images/owl.png" class="img-responsive" alt="Cinque Terre"/>
-        <h4>喵头鹰</h4>
+        <% if(user) {%>
+        <h4><%= user.nickName %></h4>
         <h5>
             <span class="glyphicon glyphicon-grain"></span>
-            杰出青年程序猿
+            <% if (0 == user.userTitle) { %>
+            代码中二实习生
+            <% }else if(1 == user.userTitle) { %>
+            后台应用程序猿
+            <% }else if(2 == user.userTitle) { %>
+            开源硬件小创客
+            <% }else if(3 == user.userTitle) { %>
+            前端体验射击师
+            <% }else if(4 == user.userTitle) { %>
+            苦逼运维攻城师
+            <% }else if(5 == user.userTitle) { %>
+            霸葛吐槽测试猿
+            <% }else if(6 == user.userTitle) { %>
+            腻害程序鼓励师
+            <% } %>
         </h5>
         <p>
-            优秀的全能创客,
-            爱编程，更爱妹纸. 从来未浮夸，一直很低调。
-            喜欢旅行，热爱美食，热衷有趣的新兴技术，
-            愿意听人吹牛逼，也享受自己吹牛逼，
-            为人谦逊，心胸阔达，从来不捅项目经理，最多就打个半死残废.
+            <%= user.profile %>
         </p>
+        <% } else {%>
+        <h4>JiangInk</h4>
+        <h5>
+            <span class="glyphicon glyphicon-grain"></span>
+            苦逼程序猿
+        </h5>
+        <p>
+            擅长的领域：<br />
+            Linux、C、Node.JS、MongoDB<br />
+            本项目运用的技术：<br />
+            JQuery、Bootstrap、EJS<br />
+            Node.JS、Express4、MongoDB<br />
+        </p>
+        <% } %>
     </div>
     <!-- Sidebar Menu -->
     <div class="list-group">
