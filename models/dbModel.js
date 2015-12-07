@@ -24,6 +24,7 @@ var articleSchema = new mongoose.Schema({
     title: {type: 'String', required:true},
     author: {type: 'String', required:true},
     content: {type: 'String'},
+    pv: {type:'Number', default: 0},
     tags: [],
     createTime: {},
     comments: [],

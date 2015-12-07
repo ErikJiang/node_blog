@@ -21,6 +21,14 @@
                 <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">菜单／Menu</button>
             </p>
             <div class="row">
+                <% if(user) {%>
+                <p>
+                    <a class="btn btn-sm btn-primary btn-align" href="/publish.do" role="button">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;发表
+                    </a>
+                </p>
+                <% } %>
+
                 <% if(articles.length) {%>
                 <% articles.forEach(function(article, index) {%>
                 <div class="col-xs-12 col-lg-9 blog-post blog-border">
@@ -30,8 +38,8 @@
                         </a>
                     </h2>
                     <p class="blog-post-meta">
-                        作者: <a href="#"><%= article.author %></a> |
-                        时间: <%= article.createTime.minute %> |
+                        作者: <a href="#"><%= article.author %></a>&nbsp; |
+                        时间: <%= article.createTime.minute %>&nbsp; |
                         标签:
                         <% article.tags.forEach(function(tag, index) { %>
                         <% if(tag) { %>
@@ -40,17 +48,17 @@
                         <% }) %>
                     </p>
                     <p class="blog-content"><%= article.content %></p>
-                    <p><a class="btn btn-sm" href="#" role="button">more &raquo;</a></p>
+                    <!--<p><a class="btn btn-sm" href="#" role="button">more &raquo;</a></p>-->
                     <p class="blog-post-meta">
-                        <a href="#">阅读 <span class="badge">4</span></a> |
-                        <a href="#">评论 <span class="badge">5</span></a> |
+                        <a href="#">阅读 <span class="badge"><%= article.pv %></span></a>&nbsp; |
+                        <a href="#">评论 <span class="badge"><%= article.comments.length %></span></a>&nbsp; |
                         <a href="#">转载 <span class="badge">6</span></a>
                     </p>
                 </div><!--/.col-xs-12.col-lg-9-->
                 <% }) %>
                 <% } else { %>
                 <div class="col-xs-12 col-lg-9 jumbotron blog-post">
-                <p>您目前还没有任何博文，可点击“发表”进行撰写 ^_^</p>
+                <p class="info-align">目前还没有任何博文可供阅览 ^_^</p>
                 </div><!--/.col-xs-12.col-lg-9-->
                 <% } %>
 

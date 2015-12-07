@@ -174,11 +174,16 @@ body {
 }
 .blog-post-meta {
     margin-bottom: 20px;
+    margin-top: 20px;
     color: #999;
 }
 .blog-border {
     border: 1px rgb(238,238,238) solid;
     border-radius: 10px;
+}
+.btn-align {
+    position: fixed;
+    top: 30%; right: 0;
 }
 
 /* Pagination */
@@ -366,5 +371,6 @@ body {
     max-width: 20%;
     margin: 5px 80px 5px 0px;
     float: left;
-
 }
+
+

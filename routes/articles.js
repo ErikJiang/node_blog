@@ -53,6 +53,33 @@ function router(app) {
             });
         });
     });
+
+    //show an article
+    app.get('/u/:author/:day/:title', function(req, res) {
+        var conditions = {
+            'title': req.params.title,
+            'author': req.params.author,
+            'createTime.day': req.params.day
+        };
+        articleModel.findOne(conditions, function(err, article) {
+            if(err) {
+                console.log(err);
+                return res.send('find article err!');
+            }
+            if(article) {
+                articleModel.update(conditions, {$inc: {"pv": 1}}, function(err) {
+                    if(err) {
+                        console.log(err);
+                        return res.send('update article pv fail!');
+                    }
+                    res.render('article', {
+                        user: req.session.user,
+                        article: article
+                    });
+                });
+            }
+        });
+    });
 }
 
 module.exports = router;
