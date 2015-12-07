@@ -21,29 +21,25 @@
                 <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">菜单／Menu</button>
             </p>
             <div class="row">
+                <% if(articles.length) {%>
+                <% articles.forEach(function(article, index) {%>
                 <div class="col-xs-12 col-lg-9 blog-post blog-border">
-                    <h2 class="blog-post-title">探秘地下之城</h2>
+                    <h2 class="blog-post-title">
+                        <a href="/u/<%= article.author %>/<%= article.createTime.day %>/<%= article.title %>">
+                            <%= article.title %>
+                        </a>
+                    </h2>
                     <p class="blog-post-meta">
-                        作者: <a href="#">Mark</a> |
-                        时间: January 1, 2014 |
-                        标签: <a href="#">探索</a>
+                        作者: <a href="#"><%= article.author %></a> |
+                        时间: <%= article.createTime.minute %> |
+                        标签:
+                        <% article.tags.forEach(function(tag, index) { %>
+                        <% if(tag) { %>
+                        <a href="#"><%= tag %></a>
+                        <% }%>
+                        <% }) %>
                     </p>
-                    <p>废弃的防空洞、秘密掩体、秘密通道与下水管线，带上装备我们一起去探秘其中…… </p>
-                    <p><a class="btn btn-sm" href="#" role="button">more &raquo;</a></p>
-                    <p class="blog-post-meta">
-                        <a href="#">阅读 <span class="badge">4</span></a> |
-                        <a href="#">评论 <span class="badge">5</span></a> |
-                        <a href="#">转载 <span class="badge">6</span></a>
-                    </p>
-                </div>
-                <div class="col-xs-12 col-lg-9 blog-post blog-border">
-                    <h2 class="blog-post-title">探秘地下之城</h2>
-                    <p class="blog-post-meta">
-                        作者: <a href="#">Mark</a> |
-                        时间: January 1, 2014 |
-                        标签: <a href="#">探索</a>
-                    </p>
-                    <p>废弃的防空洞、秘密掩体、秘密通道与下水管线，带上装备我们一起去探秘其中…… </p>
+                    <p class="blog-content"><%= article.content %></p>
                     <p><a class="btn btn-sm" href="#" role="button">more &raquo;</a></p>
                     <p class="blog-post-meta">
                         <a href="#">阅读 <span class="badge">4</span></a> |
@@ -51,6 +47,13 @@
                         <a href="#">转载 <span class="badge">6</span></a>
                     </p>
                 </div><!--/.col-xs-12.col-lg-9-->
+                <% }) %>
+                <% } else { %>
+                <div class="col-xs-12 col-lg-9 jumbotron blog-post">
+                <p>您目前还没有任何博文，可点击“发表”进行撰写 ^_^</p>
+                </div><!--/.col-xs-12.col-lg-9-->
+                <% } %>
+
 
                 <!-- 文章分页内容 -->
                 <%- include ./common/paging %>

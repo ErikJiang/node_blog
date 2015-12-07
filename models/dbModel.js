@@ -6,6 +6,8 @@ mongoose.connect('mongodb://localhost:27017/node_blog');
 
 
 //Schema
+
+//1、user
 var userSchema = new mongoose.Schema({
     userName: {type:'String', required:true},
     password: {type:'String', required:true},
@@ -17,5 +19,23 @@ var userSchema = new mongoose.Schema({
     createTime: {type:'Date', default: Date.now()}
 });
 
+//2、article
+var articleSchema = new mongoose.Schema({
+    title: {type: 'String', required:true},
+    author: {type: 'String', required:true},
+    content: {type: 'String'},
+    tags: [],
+    createTime: {},
+    comments: [],
+    reprintInfo: {}
+});
+
+
 //Model
+
+//1、user
 exports.userModel = mongoose.model('users', userSchema);
+
+//2、article
+exports.articleModel = mongoose.model('articles', articleSchema);
+
