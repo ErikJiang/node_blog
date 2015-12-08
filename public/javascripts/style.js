@@ -49,5 +49,10 @@ $(document).ready(function () {
             $("button#submit").removeAttr("disabled");
         }
     });
+
+    //publish/edit：返回上一页
+    $("button#cancel").click(function () {
+        history.back(-1);
+    });
 });
 

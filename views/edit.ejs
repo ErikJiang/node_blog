@@ -19,20 +19,22 @@
         <div class="col-xs-12 col-sm-9">
             <form class="form-publish" action="/edit.do" method="POST">
                 <label for="articleTitle">标题:</label>
-                <input type="text" id="articleTitle" name="articleTitle" class="form-control form-title" placeholder="文章标题" required autofocus/>
+                <input type="text" id="articleTitle" name="articleTitle" class="form-control form-title" value="<%= article.title %>" required />
 
                 <label for="articleText">正文:</label>
-                <textarea name="articleText" id="articleText" class="form-control form-article" cols="100" rows="20" placeholder="正文……" required></textarea>
+                <textarea name="articleText" id="articleText" class="form-control form-article" cols="100" rows="20" required><%= article.content %></textarea>
 
                 <label class="form-tag">标签:</label>
-                <input type="text" id="articleTag1" name="articleTag1" class="form-tag" placeholder="标签一"/>
+                <input type="text" id="articleTag1" name="articleTag1" class="form-tag" value="<%= article.tags[0] %>"/>
+                <input type="text" id="articleTag2" name="articleTag2" class="form-tag" value="<%= article.tags[1] %>"/>
+                <input type="text" id="articleTag3" name="articleTag3" class="form-tag" value="<%= article.tags[2] %>"/>
 
-                <input type="text" id="articleTag2" name="articleTag2" class="form-tag" placeholder="标签二"/>
-
-                <input type="text" id="articleTag3" name="articleTag3" class="form-tag" placeholder="标签三"/>
+                <input type="hidden" name="priTitle" class="form-tag" value="<%= article.title %>"/>
+                <input type="hidden" name="priAuthor" class="form-tag" value="<%= article.author %>"/>
+                <input type="hidden" name="priTime" class="form-tag" value="<%= article.createTime.day %>"/>
                 <br/>
                 <br/>
-                <button class="btn btn-sm btn-primary btn-block" type="submit" id="submit">发表</button>
+                <button class="btn btn-sm btn-primary btn-block" type="submit" id="submit">确认</button>
                 <button class="btn btn-sm btn-primary btn-block" type="button" id="cancel">取消</button>
 
             </form>
