@@ -147,6 +147,27 @@ function router(app) {
             });
         });
     });
+
+    //remove an article
+    app.get('/remove/:name/:day/:title', function(req, res) {
+        var conditions = {
+            'title': req.params.title,
+            'author': req.params.name,
+            'createTime.day': req.params.day
+        };
+        articleModel.findOneAndRemove(conditions, function(err) {
+            if(err) {
+                console.log(err);
+                return res.send('删除该文章失败！');
+            }
+            res.render('feedback', {
+                user: req.session.user,
+                type: 'publish',
+                errinfo: null,
+                successinfo: '已删除该文章！'
+            });
+        });
+    });
 }
 
 module.exports = router;

@@ -179,6 +179,10 @@ body {
     position: fixed;
     top: 30%; right: 0;
 }
+.del-btn-align {
+    position: fixed;
+    top: 35%; right: 0;
+}
 
 /* Pagination */
 .nav-pager {
@@ -219,7 +223,6 @@ body {
 /*
  * Form Signin/Signup Page CSS
  */
-
 .form-signin,
 .form-signup{
     max-width: 330px;
