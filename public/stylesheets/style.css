@@ -165,13 +165,7 @@ body {
     margin-bottom: 5px;
     font-size: 30px;
 }
-.blog-content {
-    overflow : hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
+
 .blog-post-meta {
     margin-bottom: 20px;
     margin-top: 20px;
@@ -360,14 +354,15 @@ body {
     max-width: 15%;
     max-height: 26px;
     line-height: 26px;
-    margin: 0px 10px 10px 0px;
+    margin: 10px 10px 10px 0px;
     float: left;
 }
 .form-publish .form-btn {
     width: 800px;
     height: 50px;
 }
-.form-publish button {
+.form-publish button[type=submit],
+.form-publish button[type=button] {
     max-width: 20%;
     margin: 5px 80px 5px 0px;
     float: left;
