@@ -371,4 +371,28 @@ body {
     float: left;
 }
 
+.comment-info{
+    padding-left: 5%;
+}
+.comment-info>p>img {
+    width: 5%; height: 5%;
+}
+.comment-info hr {
+    width: 86%;
+    margin-left: 0px;
+}
 
+.comment-set {
+    margin-top: 50px;
+}
+.comment-set label {
+    font-size: 14px;
+}
+.comment-set input[type=text] {
+    width: 25%;
+    height: 26px;
+    margin-bottom: 5px;
+}
+.comment-set button[type=submit] {
+    width: 15%;
+}

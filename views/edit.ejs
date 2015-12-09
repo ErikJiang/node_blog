@@ -17,7 +17,7 @@
         <%- include ./common/sidebar %>
 
         <div class="col-xs-12 col-sm-9">
-            <form class="form-publish" action="/edit.do" method="POST">
+            <form class="form-publish" action="/edit/<%= article.author %>/<%= article.createTime.day %>/<%= article.title %>" method="POST">
                 <label for="articleTitle">标题:</label>
                 <input type="text" id="articleTitle" name="articleTitle" class="form-control form-title" value="<%= article.title %>" required />
 
@@ -28,10 +28,6 @@
                 <input type="text" id="articleTag1" name="articleTag1" class="form-tag" value="<%= article.tags[0] %>"/>
                 <input type="text" id="articleTag2" name="articleTag2" class="form-tag" value="<%= article.tags[1] %>"/>
                 <input type="text" id="articleTag3" name="articleTag3" class="form-tag" value="<%= article.tags[2] %>"/>
-
-                <input type="hidden" name="priTitle" class="form-tag" value="<%= article.title %>"/>
-                <input type="hidden" name="priAuthor" class="form-tag" value="<%= article.author %>"/>
-                <input type="hidden" name="priTime" class="form-tag" value="<%= article.createTime.day %>"/>
                 <br/>
                 <br/>
                 <br/>

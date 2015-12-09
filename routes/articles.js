@@ -110,7 +110,8 @@ function router(app) {
     });
 
     //article edit and submit
-    app.post('/edit.do', function(req, res) {
+    app.post('/edit/:name/:day/:title', check.checkIsLogin);
+    app.post('/edit/:name/:day/:title', function(req, res) {
         var tags = [req.body.articleTag1, req.body.articleTag2, req.body.articleTag3],
             date = new Date(),
             time = {
@@ -123,9 +124,9 @@ function router(app) {
                 +(date.getMinutes()<10?'0'+date.getMinutes():date.getMinutes())
             };
         var conditions = {
-            'title': req.body.priTitle,
-            'author': req.body.priAuthor,
-            'createTime.day': req.body.priTime
+            'title': req.params.title,
+            'author': req.params.name,
+            'createTime.day': req.params.day
         };
         var update = {
             title: req.body.articleTitle,
@@ -149,6 +150,7 @@ function router(app) {
     });
 
     //remove an article
+    app.get('/remove/:name/:day/:title', check.checkIsLogin);
     app.get('/remove/:name/:day/:title', function(req, res) {
         var conditions = {
             'title': req.params.title,
@@ -165,6 +167,70 @@ function router(app) {
                 type: 'publish',
                 errinfo: null,
                 successinfo: '已删除该文章！'
+            });
+        });
+    });
+
+    //add an article comment
+    app.post('/comment/:name/:day/:title', check.checkIsLogin);
+    app.post('/comment/:name/:day/:title', function(req, res) {
+        var conditions = {
+            'title': req.params.title,
+            'author': req.params.name,
+            'createTime.day': req.params.day
+        };
+        var date = new Date();
+        var comment = {
+            headIcon: '/images/owl.png',
+            author: req.body.commUser,
+            email: req.body.email,
+            website: req.body.website,
+            content: req.body.commCon,
+            createTime: date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()
+            +" "+date.getHours()+":"
+            +(date.getMinutes()<10?'0'+date.getMinutes():date.getMinutes())
+        };
+        console.log('conditions>>', conditions);
+        console.log('comment>>', comment);
+        articleModel.findOneAndUpdate(conditions, {
+            $push:{'comments': comment}
+        }, {'new': true}, function(err, article) {
+            if(err) {
+                console.log(err);
+                return res.send('提交评论失败！');
+            }
+            res.render('article', {
+                user: req.session.user,
+                article: article,
+                type: 'publish',
+                errinfo: null,
+                successinfo: '已提交该评论！'
+            });
+        });
+    });
+
+    //remove an article comment
+    app.get('/rm-comment/:name/:day/:title/:comAuthor/:comTime', function (req, res) {
+        var conditions = {
+            'title': req.params.title,
+            'author': req.params.name,
+            'createTime.day': req.params.day
+        };
+        var update = {$pull: {'comments':{
+            author: req.params.comAuthor,
+            createTime: req.params.comTime
+        }}};
+        articleModel.findOneAndUpdate(conditions, update, {'new': true}, function(err, article) {
+            if(err) {
+                console.log(err);
+                return res.send('删除评论失败！');
+            }
+            res.render('article', {
+                user: req.session.user,
+                article: article,
+                type: 'publish',
+                errinfo: null,
+                successinfo: '已删除该评论！'
             });
         });
     });

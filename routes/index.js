@@ -7,12 +7,10 @@ function router(app){
     /* GET home page. */
     app.get('/', function(req, res, next) {
         var curPage = req.query.curPage ? parseInt(req.query.curPage) : 1;
-
         var condition = {};
         if(req.session.user) {
-            condition.author = req.session.user.userName;
+            //condition.author = req.session.user.userName;
         }
-
         articleModel.count(condition, function(err, count) {
             if(err) {
                 console.log(err);
@@ -40,10 +38,7 @@ function router(app){
                     isLastPage: (curPage-1)*10+articles.length === count
                 });
             });
-
         });
-
-
     });
 
     //user router

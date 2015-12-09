@@ -15,7 +15,7 @@ var userSchema = new mongoose.Schema({
     nickName: {type:'String', default: '匿名'},
     profile: {type:'String', default: '这个人很懒，啥都没写，呵呵哒～'},
     eMail: {type:'String', default: 'username@example.com'},
-    headImg: {type:'String', default: './images/owl.png'},
+    headIcon: {type:'String', default: './images/owl.png'},
     createTime: {type:'Date', default: Date.now()}
 });
 
