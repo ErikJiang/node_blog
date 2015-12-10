@@ -171,16 +171,24 @@ body {
     margin-top: 20px;
     color: #999;
 }
+.blog-post-meta a[href='#'] {
+    text-decoration: none;
+    cursor: default;
+}
 .blog-border {
     border: 1px rgb(238,238,238) solid;
     border-radius: 10px;
 }
-.btn-align {
+
+.btn-align,
+.del-btn-align,
+.reprint-btn-align {
     position: fixed;
+}
+.btn-align {
     top: 30%; right: 0;
 }
 .del-btn-align {
-    position: fixed;
     top: 35%; right: 0;
 }
 
@@ -200,6 +208,7 @@ body {
     padding: 10px 20px;
     text-align: center;
     border-radius: 30px;
+    font-weight: bold;
 }
 
 /*
@@ -379,7 +388,7 @@ body {
 }
 .comment-info hr {
     width: 86%;
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 .comment-set {

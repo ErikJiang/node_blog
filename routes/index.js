@@ -20,8 +20,8 @@ function router(app){
                 });
             }
             articleModel.find(condition, null, {
-                skip: (curPage-1)*10,
-                limit: 10
+                skip: (curPage-1)*5,
+                limit: 5
             }, function (err, articles) {
                 if(err) {
                     console.log(err);
@@ -35,7 +35,7 @@ function router(app){
                     curPage: curPage,
                     articles: articles,
                     isFirstPage: curPage-1 === 0,
-                    isLastPage: (curPage-1)*10+articles.length === count
+                    isLastPage: (curPage-1)*5+articles.length === count
                 });
             });
         });

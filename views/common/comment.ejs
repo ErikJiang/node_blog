@@ -3,14 +3,12 @@
     <div class="comment-info">
         <p>
             <img src="<%= comment.headIcon %>" alt=""/>&nbsp;
-            <a href="<%= comment.website %>"><%= comment.author %></a>&nbsp;
+            <a href="<%= comment.website %>"><%= comment.reviewer %></a>&nbsp;
             评论于：<span><%= comment.createTime %></span>
-            <% if(user) {%>
-            <% if(user.userName == article.author) { %>
-            <a class="btn btn-sm" id="rmComBtn" href="/rm-comment/<%= article.author %>/<%= article.createTime.day %>/<%= article.title %>/<%= comment.author %>/<%= comment.createTime %>" role="button">
+            <% if(user && (user.userName==article.author)) { %>
+            <a class="btn btn-sm" id="rmComBtn" href="/rm-comment/<%= article.author %>/<%= article.createTime.day %>/<%= article.title %>/<%= comment.reviewer %>/<%= comment.createTime %>" role="button">
                 <span class="glyphicon glyphicon-trash"></span>&nbsp;删除
             </a>
-            <% } %>
             <% } %>
         </p>
         <p><%- comment.content %></p>

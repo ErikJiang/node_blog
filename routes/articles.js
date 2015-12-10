@@ -54,6 +54,44 @@ function router(app) {
         });
     });
 
+    //find articles by author
+    app.get('/u/:author', function(req, res, next) {
+        var curPage = req.query.curPage ? parseInt(req.query.curPage) : 1;
+        var condition = {};
+        if(req.session.user) {
+            condition.author = req.params.author;
+        }
+        articleModel.count(condition, function(err, count) {
+            if(err) {
+                console.log(err);
+                return res.render('index', {
+                    user: req.session.user,
+                    errinfo: 'count err!'
+                });
+            }
+            articleModel.find(condition, null, {
+                skip: (curPage-1)*5,
+                limit: 5
+            }, function (err, articles) {
+                if(err) {
+                    console.log(err);
+                    return res.render('index', {
+                        user: req.session.user,
+                        errinfo: 'find err!'
+                    });
+                }
+                console.log("articles>>:", articles);
+                res.render('index', {
+                    user: req.session.user,
+                    curPage: curPage,
+                    articles: articles,
+                    isFirstPage: curPage-1 === 0,
+                    isLastPage: (curPage-1)*5+articles.length === count
+                });
+            });
+        });
+    });
+
     //show an article
     app.get('/u/:author/:day/:title', function(req, res) {
         var conditions = {
@@ -157,6 +195,35 @@ function router(app) {
             'author': req.params.name,
             'createTime.day': req.params.day
         };
+        articleModel.findOne(conditions, function(err, article) {
+            if(err) {
+                console.log(err);
+                return res.send('remove find article fail.');
+            }
+            if (article.reprintInfo) {
+                if(article.reprintInfo.reprintFrom) {
+                    var reprint_from = article.reprintInfo.reprintFrom;
+                    articleModel.findOneAndUpdate({
+                        'title': reprint_from.title,
+                        'author': reprint_from.author,
+                        'createTime.day': reprint_from.day
+                    }, {
+                        $pull: {
+                            'reprintInfo.reprintTo': {
+                                'title': article.title,
+                                'author': article.author,
+                                'day': article.createTime.day
+                            }
+                        }
+                    }, function(err) {
+                        if(err) {
+                            console.log(err);
+                            return res.send('remove article update reprint_from data fail.');
+                        }
+                    });
+                }
+            }
+        });
         articleModel.findOneAndRemove(conditions, function(err) {
             if(err) {
                 console.log(err);
@@ -182,7 +249,7 @@ function router(app) {
         var date = new Date();
         var comment = {
             headIcon: '/images/owl.png',
-            author: req.body.commUser,
+            reviewer: req.body.commUser,
             email: req.body.email,
             website: req.body.website,
             content: req.body.commCon,
@@ -190,8 +257,6 @@ function router(app) {
             +" "+date.getHours()+":"
             +(date.getMinutes()<10?'0'+date.getMinutes():date.getMinutes())
         };
-        console.log('conditions>>', conditions);
-        console.log('comment>>', comment);
         articleModel.findOneAndUpdate(conditions, {
             $push:{'comments': comment}
         }, {'new': true}, function(err, article) {
@@ -210,6 +275,7 @@ function router(app) {
     });
 
     //remove an article comment
+    app.get('/rm-comment/:name/:day/:title/:comAuthor/:comTime', check.checkIsLogin);
     app.get('/rm-comment/:name/:day/:title/:comAuthor/:comTime', function (req, res) {
         var conditions = {
             'title': req.params.title,
@@ -217,7 +283,7 @@ function router(app) {
             'createTime.day': req.params.day
         };
         var update = {$pull: {'comments':{
-            author: req.params.comAuthor,
+            reviewer: req.params.comAuthor,
             createTime: req.params.comTime
         }}};
         articleModel.findOneAndUpdate(conditions, update, {'new': true}, function(err, article) {
@@ -233,6 +299,73 @@ function router(app) {
                 successinfo: '已删除该评论！'
             });
         });
+    });
+
+    //reprint an article
+    app.get('/reprint/:name/:day/:title', function(req, res) {
+        //find reprint_from data
+        var conditions = {
+            'title': req.params.title,
+            'author': req.params.name,
+            'createTime.day': req.params.day
+        };
+        articleModel.findOne(conditions, function(err, article) {
+            if(err) {
+                console.log(err);
+                res.send('reprint find article fail.');
+            }
+            //alter reprint_from copy data
+            var newArticle = {},
+                date = new Date(),
+                time = {
+                    date: date,
+                    year: date.getFullYear(),
+                    month: date.getFullYear()+'-'+(date.getMonth()+1),
+                    day: date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate(),
+                    minute: date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()
+                    +" "+date.getHours()+":"
+                    +(date.getMinutes()<10?'0'+date.getMinutes():date.getMinutes())
+                };
+
+            newArticle.title = (article.title.search(/[转载]/) > -1) ? article.title : '[转载]'+article.title;
+            newArticle.author = req.session.user.userName;
+            newArticle.content = article.content;
+            newArticle.pv = 0;
+            newArticle.tags = article.tags;
+            newArticle.createTime = time;
+            newArticle.comments = [];
+            newArticle.reprintInfo = {reprintFrom: {
+                title: req.params.title,
+                author: req.params.name,
+                day: req.params.day
+            }};
+
+            //add reprint_to key for reprint_from data
+            articleModel.findOneAndUpdate(conditions, {
+                $push: {'reprintInfo.reprintTo': {
+                    title: newArticle.title,
+                    author: newArticle.author,
+                    day: time.day
+                }}
+            }, function(err) {
+                if(err) {
+                    console.log(err);
+                    return res.send('reprint_from date update fail.');
+                }
+            });
+
+            //insert reprint_from copy data to database
+            articleModel.create(newArticle, function(err, article) {
+                if(err) {
+                    console.log(err);
+                    return res.send('insert reprint_from data fail.');
+                }
+                var url = encodeURI('/u/'+article.author+'/'+article.createTime.day+'/'+article.title);
+                res.redirect(url);
+            });
+        });
+
+
     });
 }
 
