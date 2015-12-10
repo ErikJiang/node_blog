@@ -3,11 +3,11 @@
 
 
 ### 一、程序中使用到的：
-> * Node.JS&emsp;&emsp;_(v0.10.33)_
-> * Express&emsp;&emsp;_(v4.12.1)_
-> * MongoDB&emsp;&emsp;_(v3.0.1)_
-> * jQuery&emsp;&emsp;_(v1.11.3)_
-> * Bootstrap&emsp;&emsp;_(v3.3.5)_
+> * Node.JS&ensp;&ensp;&ensp;&ensp;&ensp;[v0.10.33]
+> * Express&ensp;&ensp;&ensp;&ensp;&ensp;[v4.12.1]
+> * MongoDB&ensp;&ensp;&ensp;[v3.0.1]
+> * jQuery&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;[v1.11.3]
+> * Bootstrap&ensp;&ensp;&ensp;[v3.3.5]
 
 ### 二、如何运行程序：
 #####1. 首先需要启动 *MongoDB* 服务:
