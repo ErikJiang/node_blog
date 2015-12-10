@@ -41,6 +41,73 @@ function router(app){
         });
     });
 
+    /* GET archive page. */
+    app.get('/archive.do', function(req, res, next) {
+        articleModel.find({}, {
+            'title': 1,
+            'author': 1,
+            'createTime': 1
+        }, function(err, articles) {
+            if(err) {
+                console.log(err);
+                return res.send('find all archive fail.');
+            }
+            res.render('listinfo', {
+                title: '存档',
+                user: req.session.user,
+                articles: articles
+            });
+        });
+    });
+
+    /* GET tags page. */
+    app.get('/tags.do', function(req, res) {
+        articleModel.distinct('tags', function(err, tags) {
+            if(err) {
+                console.log(err);
+                return res.send('tags distinct fail.');
+            }
+            res.render('tags', {
+                title: '标签',
+                user: req.session.user,
+                tags: tags
+            });
+        });
+    });
+
+    app.get('/tags/:tag', function(req, res) {
+        var conditions = {
+            tags: req.params.tag
+        };
+        articleModel.find(conditions, {
+            'title': 1,
+            'createTime': 1,
+            'author': 1
+        },function(err, articles){
+            if(err) {
+                console.log(err);
+                return res.send('find article by tag is fail.');
+            }
+            res.render('listinfo', {
+                title: req.params.tag,
+                user: req.session.user,
+                articles: articles
+            });
+        });
+    });
+
+    /* GET search page. */
+    app.get('/search.do', function(req, res) {
+
+    });
+
+    /* GET links page. */
+    app.get('/links.do', function(req, res) {
+        res.render('links', {
+            title: '友情链接',
+            user: req.session.user
+        });
+    });
     //user router
     usersRouter(app);
 

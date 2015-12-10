@@ -57,10 +57,10 @@ function router(app) {
     //find articles by author
     app.get('/u/:author', function(req, res, next) {
         var curPage = req.query.curPage ? parseInt(req.query.curPage) : 1;
-        var condition = {};
-        if(req.session.user) {
-            condition.author = req.params.author;
-        }
+        var condition = {
+            'author': req.params.author
+        };
+
         articleModel.count(condition, function(err, count) {
             if(err) {
                 console.log(err);
@@ -80,7 +80,6 @@ function router(app) {
                         errinfo: 'find err!'
                     });
                 }
-                console.log("articles>>:", articles);
                 res.render('index', {
                     user: req.session.user,
                     curPage: curPage,
