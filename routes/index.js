@@ -98,7 +98,32 @@ function router(app){
 
     /* GET search page. */
     app.get('/search.do', function(req, res) {
+        res.render('search', {
+            title: '搜索',
+            user: req.session.user
+        });
+    });
 
+    /* GET search result */
+    app.post('/search.do', function(req, res) {
+        var pattern = new RegExp(req.body.content, 'i');
+        articleModel.find({
+            'title': pattern
+        }, {
+            'title': 1,
+            'author': 1,
+            'createTime': 1
+        }, function(err, articles) {
+            if(err) {
+                console.log(err);
+                return res.send('search find articles fail.');
+            }
+            res.render('listinfo', {
+                'title': '搜索结果',
+                'user': req.session.user,
+                'articles': articles
+            });
+        });
     });
 
     /* GET links page. */
