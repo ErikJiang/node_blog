@@ -15,10 +15,25 @@
     <!-- 描述信息区域 -->
     <div class="jumbotron info-align">
         <h3><%= errinfo %></h3>
-        <p><span>10</span>秒后跳转至主页。</p>
-        <p><a href="/" class="btn btn-primary btn-lg" role="button">
-                点击直接跳转</a>
-        </p>
+
+        <script type="text/javascript">
+            //10妙后返回
+            function countDown(secs){
+                var jumpTo = document.getElementById('jumpTo');
+                jumpTo.innerHTML = secs;
+                if(--secs>0){
+                    setTimeout("countDown("+secs+")",1000);
+                }
+                else{
+                    history.go(-1);
+                }
+            }
+        </script>
+        <p><span id="jumpTo">10</span>秒后返回上一页。</p>
+        <script type="text/javascript"> countDown(10) </script>
+        <!--<p><a href="/" class="btn btn-primary btn-lg" role="button">-->
+                <!--点击直接跳转</a>-->
+        <!--</p>-->
     </div>
 
 

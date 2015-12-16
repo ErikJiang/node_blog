@@ -127,6 +127,5 @@ $(document).ready(function () {
         $(this).append($span);
         $(this).append($a);
     });
-
 });
 
