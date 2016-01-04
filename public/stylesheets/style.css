@@ -430,17 +430,6 @@ body {
 }
 
 .tag{
-    background-color: #0b97c4;
-    border-radius: 3px;
-    font-size: 14px;
-    color: #ffffff;
-    display: inline-block;
-    padding: 0 5px;
+    padding: 1px 10px;
     margin-bottom: 8px;
-}
-.tag:hover{
-    text-decoration: none;
-    background-color: #ffffff;
-    color: #000000;
-    -webkit-transition: color .2s linear;
 }
