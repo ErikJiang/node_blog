@@ -8,7 +8,7 @@
 
 2. `cd node_blog/`
 
-3. `npm install`
+3. `npm install && bower install`
 
 ### 如何运行
 开启一个终端，运行 _MongoDB_ 服务：
