@@ -1,0 +1,25 @@
+{
+  "name": "node_blog",
+  "description": "",
+  "main": "",
+  "authors": [
+    "JiangInk <JiangInk@foxmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "blog"
+  ],
+  "homepage": "https://github.com/JiangInk/node_blog",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6"
+  }
+}
