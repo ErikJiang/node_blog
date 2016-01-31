@@ -30,7 +30,8 @@ function router(app){
                         errinfo: 'find err!'
                     });
                 }
-                res.render('index', {
+                // res.render('index', {
+                res.render('index-beta', {
                     user: req.session.user,
                     curPage: curPage,
                     articles: articles,
