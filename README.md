@@ -1,4 +1,7 @@
 # node_blog
+
+[beta 实验版本]
+
 运用 Node.JS、Express、MongoDB、Bootstrap 进行博客应用开发
 
 
