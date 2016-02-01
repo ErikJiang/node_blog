@@ -6,6 +6,7 @@ body {
 	word-wrap: break-word;
     font: 12px/200% "Hiragino Sans GB","Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体";
     color: #666;
+    background: url("/images/background.jpg") fixed no-repeat;
 }
 
 textarea, input, select {
@@ -51,6 +52,11 @@ input, textarea, keygen, select, button {
 input, textarea, keygen, select, button, meter, progress {
     -webkit-writing-mode: horizontal-tb;
 }
+/*a, a:hover {
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+}*/
 
 /*
     侧边栏样式
@@ -60,58 +66,60 @@ input, textarea, keygen, select, button, meter, progress {
     position: fixed;
     top: 0px;
     left: 0px;
+    width: 20vw;
     height: 100vh;
 }
 .sidebar-container {
-    padding: 18% 12%;
+    padding: 14%;
     text-align: center;
 }
-
-.box::after {
-    clear: both;
-    display: block;
-    visibility: hidden;
-    height: 0px;
-    overflow: hidden;
-    content: ".";
-}
-
 .sidebar-icon img, .pager-idx a {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
 }
-.sidebar-icon img {
+.sidebar-icon .icon img {
     border: 2px solid #51CFD4;
-    padding: 5px;
-    width: 128px;
-    height: 128px;
+    padding: 4px;
+    width: 80%;
+    height: 80%;
     vertical-align: middle;
+    transform: rotateY(0deg);
+    -webkit-transition: transform 1.5s ease-out;
+    -moz-transition: transform 1.5s ease-out;
+    -o-transition: transform 1.5s ease-out;
+    transition: transform 1.5s ease-out;
 }
-.sidebar-icon img, .siderbar-icon .auther, .auther-profile .cont {
-    margin-bottom: 30px;
+.sidebar-icon .icon img:hover {
+    transform: rotateY(360deg);
+    -webkit-transition: transform 1.5s ease-out;
+    -moz-transition: transform 1.5s ease-out;
+    -o-transition: transform 1.5s ease-out;
+    transition: transform 1.5s ease-out;
 }
-
-.sidebar-icon .auther a,
-.auther-profile .cont,
+h1.auther {
+    font-size: 16px;
+}
+.auther-profile p.content {
+    font-size: 12px;
+}
+.sidebar-icon img, .siderbar-icon .auther, .auther-profile .content {
+    margin-bottom: 6%;
+}
+.sidebar-icon .auther a, .auther-profile .content,
 .sidebar-nav a, .sidebar-search .text {
     color: #FFF;
 }
-.img{
-    margin:0 0 15px;
-}
-a, .hdimg img, .m-post .img img, .m-cstmimg img, .sidebar-search .text {
-    -webkit-transition: all .3s ease;
-    -moz-transition: all .3s ease;
-    -o-transition: all .3s ease;
-    transition: all .3s ease;
+.sidebar-nav li a.btn {
+    font-size: 12px;
+    border: 0px;
 }
 .sidebar-nav a, .sidebar-search .text {
     display: block;
     padding: 6px 12px;
-    height: 20px;
+    width: 15vw;
     background: rgba(255, 255, 255, 0.1) none repeat scroll 0% 0%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    border: 0px;
     line-height: 20px;
     white-space: nowrap;
     -webkit-border-radius: 16px;
@@ -119,7 +127,7 @@ a, .hdimg img, .m-post .img img, .m-cstmimg img, .sidebar-search .text {
     border-radius: 16px;
 }
 .sidebar-search .text {
-    width: 162px;
+    font-size: 12px;
     border-width: 0px 0px 1px;
     text-align: center;
 }
@@ -128,38 +136,24 @@ a, .hdimg img, .m-post .img img, .m-cstmimg img, .sidebar-search .text {
     margin: 7px 2px;
     list-style: outside none none;
     display: list-item;
-    text-align: -webkit-match-parent;
-}
-.sidebar-nav li a:hover,
-.sidebar-nav li input:hover {
-    background-color: #51CFD4;
+    text-align: center;
 }
 
-a, a:hover {
-    text-decoration: none;
-    outline: 0px none;
-    cursor: pointer;
-}
-a:-webkit-any-link {
-    color: -webkit-link;
-    text-decoration: underline;
-    cursor: auto;
-}
-a, .footer a:hover {
-    color: #51CFD4;
+.sidebar-nav a:hover,
+.sidebar-nav .text:hover {
+    background-color: #51CFD4;
+    color: #FFF;
 }
 
 /*
     博文内容区
  */
 .article {
-    float: right;
-    width: 100%;
-    background: url("/images/background.jpg") fixed no-repeat;
-    margin-left: -20%;
+    width: 80%;
+    margin-left: 20%;
 }
 .section {
-    padding: 14px 0px 0px 290px;
+    padding: 5% 0%;
 }
 
 /*
@@ -173,18 +167,20 @@ a, .footer a:hover {
 }
 .m-post{
     position:relative;
-    margin:0 0 70px;
-    width: 85%;
-    padding:50px 50px 60px;
+    width: 90%;
+    margin: 0 5% 5% 5%;
+    padding: 5%;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(250, 250, 250, 0.9);
     border-radius: 10px;
 }
 .m-post:hover {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 1);
 }
-.cont{
+.content{
     letter-spacing:1px;
+    color: rgba(116, 116, 116, 1);
+    /*overflow: hidden;*/
 }
 .text{
     line-height:1.6;
@@ -192,36 +188,20 @@ a, .footer a:hover {
 .text h2{
     font-size:24px;
 }
-.text h2,.text ul,.text ol,.text p{
+.text h2,.text p{
     margin:0 0 20px;
 }
-.text ul,.text ol{
-    padding:0 0 0 2.5em;
-}
-.text ul li{
-    list-style:outside disc;
-}
-.text ol li{
-    list-style:outside decimal;
-}
-
 .text img{
     display:block;margin:0 0 10px;
 }
-.subinfo-1{
+
+.subinfo {
     position:absolute;
-    bottom:32px; left:50px;
+    bottom: 0%; left: 6%;
+    margin: 0 0 2% 0;
 }
 .subinfo a{
-    margin:0 20px 0 0;
-    color:#777;
     font-size:12px;
-}
-.subinfo span{
-    display:block;
-}
-.subinfo span a{
-    display:inline-block;
 }
 .subinfo .hotnum{
     padding:0 0 0 22px;
@@ -231,20 +211,19 @@ a, .footer a:hover {
     padding:0 0 0 22px;
     background-position:-10px -336px;
 }
-.m-page{
-    margin:0 0 70px; text-align:center;
+.content a, .pager-idx i.fa, .footer a:hover {
+    color: #51CFD4;
 }
-.m-page a{
-    display:inline-block;
-    padding:10px 30px;
-    margin:0 50px;
-    background:#fff;
+.content a:hover, .pager-idx i.fa:hover, .subinfo a {
+    color: rgba(116, 116, 116, 1);
+    text-decoration: none;
 }
 
 /*
     置顶按钮
  */
 .pager-idx {
+    margin: 0% 0% 10% 5%;
     padding: 60px 0px 20px 15px;
     line-height: 56px;
     font-size: 20px;
@@ -276,7 +255,8 @@ a, .footer a:hover {
     color: #CCC;
 }
 .footer {
-    margin: 40px 0px;
+    margin: 5%;
+
 }
 
 
