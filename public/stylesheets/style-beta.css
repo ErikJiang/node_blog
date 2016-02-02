@@ -6,7 +6,7 @@ body {
 	word-wrap: break-word;
     font: 12px/200% "Hiragino Sans GB","Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体";
     color: #666;
-    background: url("/images/background.jpg") fixed no-repeat;
+    background: url("/image/background.jpg") fixed no-repeat;
 }
 
 textarea, input, select {
@@ -117,7 +117,7 @@ h1.auther {
 .sidebar-nav a, .sidebar-search .text {
     display: block;
     padding: 6px 12px;
-    width: 15vw;
+    width: 14vw;
     background: rgba(255, 255, 255, 0.1) none repeat scroll 0% 0%;
     border: 0px;
     line-height: 20px;

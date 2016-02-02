@@ -30,7 +30,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 //router handler
 routes(app);

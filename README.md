@@ -16,8 +16,8 @@
 ### 如何运行
 开启一个终端，运行 _MongoDB_ 服务：
 
-	mongod --config /usr/local/etc/mongod.conf
+	$ mongod --config /usr/local/etc/mongod.conf
 
-进入项目根目录，启动 _express_ 应用:
+使用 `Gulp` 工具构建并运行应用服务:
 
-    ./bin/www
+    $ gulp
