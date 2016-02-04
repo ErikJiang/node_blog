@@ -1,3 +1,5 @@
+'use strict';
+
 var del = require('del'),
 	gulp = require('gulp'),
 	cache = require('gulp-cache'),
@@ -9,8 +11,8 @@ var del = require('del'),
 	cssnano = require('gulp-cssnano'),
 	nodemon = require('gulp-nodemon'),
 	imagemin = require('gulp-imagemin'),
-	livereload = require('gulp-livereload'),
-	autoprefixer = require('gulp-autoprefixer');
+	autoprefixer = require('gulp-autoprefixer'),
+	browserSync = require('browser-sync');
 
 // 路径配置参数
 var paths = {
@@ -61,14 +63,14 @@ gulp.task('copy-css', function() {
 // 0. 拷贝 font 文件
 gulp.task('copy-font', function() {
 	return gulp.src(paths.client.rely.fonts)
-		.pipe(gulp.dest(paths.client.dest.fonts))
-		.pipe(notify({message: 'Copy font files complete.'}));
+		.pipe(gulp.dest(paths.client.dest.fonts));
+		// .pipe(notify({message: 'Copy font files complete.'}));
 });
 // 0. 拷贝 editor 文件
 gulp.task('copy-editor', function() {
 	return gulp.src(paths.client.rely.editor)
-		.pipe(gulp.dest(paths.client.dest.editor))
-		.pipe(notify({message: 'Copy editor files complete.'}));
+		.pipe(gulp.dest(paths.client.dest.editor));
+		// .pipe(notify({message: 'Copy editor files complete.'}));
 });
 // 0. 任务 拷贝文件
 gulp.task('copy', ['copy-js', 'copy-css', 'copy-font', 'copy-editor']);
@@ -130,30 +132,62 @@ gulp.task('watch', function() {
 	gulp.watch(paths.client.src.scripts, ['scripts']);
 	gulp.watch(paths.client.src.images, ['images']);
 	gulp.watch(paths.client.src.styles, ['styles']);
-	// 创建 livereload 监听服务
-	livereload.listen();
+	
 	// 若有改变自动重载刷新
-	gulp.watch([paths.client.src.all]).on('change', livereload.changed);
+	gulp.watch([paths.client.src.all, './views/**'], browserSync.reload);
+});
+
+// 监听变化同步刷新
+gulp.task('browsersync', ['nodemon'], function() {
+	browserSync.init(null, {
+		files: ['./public/**', './views/**'],
+		proxy: 'http://localhost:8880', // 服务器端原地址及端口
+		port: 8888,		// 映射到浏览器上的 URI 端口 
+		open: false
+		// browser: ['/Applications/Chromium.app'],
+		// notify: true
+	});
 });
 
 // 自动重启服务端程序
-gulp.task('nodemon', function() {
+gulp.task('nodemon', function(cb) {
+	var called = false;
+
 	return nodemon({
 		script: paths.server.index,
 		ext: 'js',
+		ignore: [	// 忽略目录
+			'node_modules',
+			'public',
+			'views',
+			'bin'
+		],
 		env: {'NODE_ENV': 'development'}
-	});
+	})
+	.on('start', function() {
+		if(!called) {
+			called = true;
+			cb();
+		}
+	})
+	.on('restart', function onRestart() {
+      setTimeout(function reload() {
+        browserSync.reload({
+          stream: false
+        });
+      }, 500);
+    });
 });
 
 // 默认任务
 gulp.task('default', ['clean'], function() {
 	gulp.start(
 		'copy',
-		'scripts',
-		'images',
-		'styles',
-		'nodemon',
-		'watch'
+		'scripts', 
+		'images', 
+		'styles',  
+		'browsersync', 
+		'watch' 
 	);
 });
 

@@ -4,7 +4,7 @@
 $(document).ready(function () {
     //侧边栏导航显示
     $('[data-toggle="offcanvas"]').click(function () {
-        $('.row-offcanvas').toggleClass('active')
+        $('.row-offcanvas').toggleClass('active');
     });
 
     //Register: 失去焦点事件查询名称是否已被注册
@@ -13,9 +13,9 @@ $(document).ready(function () {
         //console.log("name:>> ", name);
         $.get("/findByName.do?name="+name, function (result) {
             //console.log("result:>> ", result.constructor);
-            if(result.constructor==Object || name==""){
+            if(result.constructor==Object || name===""){
                 $("span.errinfo").removeClass("corinfo");
-                if(name==""){
+                if(name===""){
                     $("span.errinfo").text("用户名称不能为空!");
                 }else{
                     $("span.errinfo").text("此用户名称已被注册!");
@@ -100,7 +100,7 @@ $(document).ready(function () {
                                 self.exec(i).hideMenu();
                             }
                         });
-                    })
+                    });
                 });
             });
         });
